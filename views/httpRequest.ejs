@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+
+    <form action="/makeRequest" method="POST">
+        <input type="text" name="url" placeholder="Enter a URL" required>
+        <button type="submit">Make Request</button>
+    </form>
+    <pre id="response"></pre>
+    
+    <script>
+        const form = document.querySelector("form");
+        const responseElement = document.getElementById("response");
+      
+        form.addEventListener("submit", async (event) => {
+            event.preventDefault();
+            const formData = new FormData(form);
+            const url = formData.get("url");
+            const fetchResponse = await fetch(url, { // Use the provided URL from the form
+                method: "GET", // Use GET method to retrieve data
+            });
+            const data = await fetchResponse.json();
+            responseElement.textContent = JSON.stringify(data);
+        });
+    </script>
+    
+</body>
+</html>
